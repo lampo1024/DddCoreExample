@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using DddCoreExample.Domain.Models.Countries;
 using DddCoreExample.Domain.Models.Customers;
@@ -10,6 +8,7 @@ using DddCoreExample.Domain.Models.Purchases;
 using DddCoreExample.Domain.Repository;
 using DddCoreExample.Domain.Specification;
 using DddCoreExample.Domain.Specification.Customers;
+using DddCoreExample.Domain.Specification.Purchases;
 
 namespace DddCoreExample.Application.Customers
 {
@@ -118,7 +117,37 @@ namespace DddCoreExample.Application.Customers
 
         public List<CustomerPurchaseHistoryDto> GetAllCustomerPurchaseHistoryV1()
         {
-            throw new NotImplementedException();
+            var customersThatHavePurchasedSomething =
+                _purchaseRepository.Find(new PurchasedNProductsSpec(1))
+                    .Select(purchase => purchase.CustomerId)
+                    .Distinct();
+
+            var customers =
+                _customerRepository.Find(new CustomerBulkIdFindSpec(customersThatHavePurchasedSomething));
+
+            var customersPurchaseHistory =
+                new List<CustomerPurchaseHistoryDto>();
+
+            foreach (var customer in customers)
+            {
+                var customerPurchases =
+                    _purchaseRepository.Find(new CustomerPurchasesSpec(customer.Id));
+
+                var customerPurchaseHistory = new CustomerPurchaseHistoryDto
+                {
+                    CustomerId = customer.Id,
+                    FirstName = customer.FirstName,
+                    LastName = customer.LastName,
+                    Email = customer.Email,
+                    TotalPurchases = customerPurchases.Count(),
+                    TotalProductsPurchased =
+                        customerPurchases.Sum(purchase => purchase.Products.Sum(product => product.Quantity)),
+                    TotalCost = customerPurchases.Sum(purchase => purchase.TotalCost)
+                };
+                customersPurchaseHistory.Add(customerPurchaseHistory);
+
+            }
+            return customersPurchaseHistory;
         }
 
         public List<CustomerPurchaseHistoryDto> GetAllCustomerPurchaseHistoryV2()
