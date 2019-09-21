@@ -9,14 +9,12 @@ namespace DddCoreExample.Application.Products
     {
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<ProductCode> _productCodeRepository;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public ProductService(IRepository<Product> productRepository, IRepository<ProductCode> productCodeRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _productRepository = productRepository;
             _productCodeRepository = productCodeRepository;
-            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
