@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DddCoreExample.Application\DddCoreExample.Application.csproj" />
     <ProjectReference Include="..\DddCoreExample.Domain\DddCoreExample.Domain.csproj" />
+    <ProjectReference Include="..\DddCoreExample.Infrastructure\DddCoreExample.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,11 @@
 ﻿using System;
-using AutoMapper;
 using DddCoreExample.Api.Models;
 using DddCoreExample.Application.Customers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DddCoreExample.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
@@ -18,11 +17,20 @@ namespace DddCoreExample.Api.Controllers
         }
 
         [HttpGet]
-        public Response<CustomerDto> Get(Guid id)
+        public Response<CustomerDto> Find(Guid id)
         {
             var response = new Response<CustomerDto>();
-            var customer = _customerService.Get(id);
-            response.Object = customer;
+            try
+            {
+                var customer = _customerService.Get(id);
+                response.Object = customer;
+            }
+            catch (Exception e)
+            {
+                response.Errored = true;
+                response.ErrorMessage = e.ToString();
+            }
+
             return response;
         }
     }
