@@ -11,6 +11,7 @@ using DddCoreExample.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -50,7 +51,12 @@ namespace DddCoreExample.Api
             services.AddScoped<ICustomerService, CustomerService>();
 
             services.AddAutoMapperService();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //services.AddRazorPages();
+            services.Configure<RouteOptions>(options => { options.LowercaseUrls = true; });
+            services
+                .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,7 +67,12 @@ namespace DddCoreExample.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseStaticFiles();
+            //app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
