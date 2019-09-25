@@ -28,12 +28,15 @@ namespace DddCoreExample.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<MemoryRepository<Customer>>();
-            services.AddSingleton<MemoryRepository<Country>>();
-            services.AddSingleton<MemoryRepository<CountryTax>>();
-            services.AddSingleton<MemoryRepository<Product>>();
-            services.AddSingleton<MemoryRepository<ProductCode>>();
-            services.AddSingleton<MemoryRepository<Purchase>>();
+            //services.AddSingleton<MemoryRepository<Customer>>();
+            //services.AddSingleton<MemoryRepository<Country>>();
+            //services.AddSingleton<MemoryRepository<CountryTax>>();
+            //services.AddSingleton<MemoryRepository<Product>>();
+            //services.AddSingleton<MemoryRepository<ProductCode>>();
+            //services.AddSingleton<MemoryRepository<Purchase>>();
+
+            services.AddSingleton(typeof(MemoryRepository<>));
+
             services.AddSingleton(typeof(IRepository<>), typeof(MemoryRepository<>));
             services.AddScoped<IUnitOfWork, MemoryUnitOfWork>();
 
