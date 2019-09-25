@@ -1,10 +1,8 @@
-﻿using System;
-using DddCoreExample.Api.Extensions;
+﻿using DddCoreExample.Api.Extensions;
 using DddCoreExample.Application.Customers;
 using DddCoreExample.Domain.Models.Countries;
 using DddCoreExample.Domain.Models.Customers;
 using DddCoreExample.Domain.Models.Products;
-using DddCoreExample.Domain.Models.Purchases;
 using DddCoreExample.Domain.Models.Tax;
 using DddCoreExample.Domain.Repository;
 using DddCoreExample.Infrastructure;
@@ -14,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace DddCoreExample.Api
 {
@@ -52,15 +51,15 @@ namespace DddCoreExample.Api
 
             services.AddAutoMapperService();
 
-            //services.AddRazorPages();
+            services.AddRazorPages();
             services.Configure<RouteOptions>(options => { options.LowercaseUrls = true; });
             services
                 .AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .SetCompatibilityVersion(CompatibilityVersion.Latest);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -69,9 +68,15 @@ namespace DddCoreExample.Api
 
             app.UseStaticFiles();
             //app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
-            app.UseMvc(routes =>
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            //});
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

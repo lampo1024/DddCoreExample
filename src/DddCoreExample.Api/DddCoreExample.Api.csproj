@@ -1,25 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\libs\" />
-  </ItemGroup>
+    <ItemGroup>
+        <Folder Include="wwwroot\libs\" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DddCoreExample.Application\DddCoreExample.Application.csproj" />
-    <ProjectReference Include="..\DddCoreExample.Domain\DddCoreExample.Domain.csproj" />
-    <ProjectReference Include="..\DddCoreExample.Infrastructure\DddCoreExample.Infrastructure.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\DddCoreExample.Application\DddCoreExample.Application.csproj" />
+        <ProjectReference Include="..\DddCoreExample.Domain\DddCoreExample.Domain.csproj" />
+        <ProjectReference Include="..\DddCoreExample.Infrastructure\DddCoreExample.Infrastructure.csproj" />
+    </ItemGroup>
 
 </Project>
