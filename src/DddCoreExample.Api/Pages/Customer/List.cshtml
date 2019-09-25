@@ -4,4 +4,20 @@
     Layout = "Shared/_Layout";
     ViewData["Title"] = "Customer list";
 }
-<p>Hello world.</p>
+<div class="table-responsive table-responsive-sm">
+    <table class="table table-bordered table-hover table-striped table-sm">
+        <tr>
+            <td>FirstName</td>
+            <td>LastName</td>
+            <td>Email</td>
+        </tr>
+        @foreach (var cus in Model.Customers)
+        {
+            <tr>
+                <td>@cus.FirstName</td>
+                <td>@cus.LastName</td>
+                <td>@cus.Email</td>
+            </tr>
+        }
+    </table>
+</div>

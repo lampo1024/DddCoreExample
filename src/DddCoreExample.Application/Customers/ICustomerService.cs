@@ -10,6 +10,7 @@ namespace DddCoreExample.Application.Customers
         void Update(CustomerDto customerDto);
         void Remove(Guid customerId);
         CustomerDto Get(Guid customerId);
+        List<CustomerDto> FindAll();
         CreditCardDto Add(Guid customerId, CreditCardDto creditCard);
         List<CustomerPurchaseHistoryDto> GetAllCustomerPurchaseHistoryV1();
 

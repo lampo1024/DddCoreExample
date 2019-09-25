@@ -94,6 +94,12 @@ namespace DddCoreExample.Application.Customers
             return _mapper.Map<Customer, CustomerDto>(customer);
         }
 
+        public List<CustomerDto> FindAll()
+        {
+            var customers = _customerRepository.Find(null).ToList();
+            return _mapper.Map<List<Customer>, List<CustomerDto>>(customers);
+        }
+
         public CreditCardDto Add(Guid customerId, CreditCardDto creditCardDto)
         {
             ISpecification<Customer> registeredSpec =

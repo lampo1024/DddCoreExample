@@ -41,11 +41,11 @@ namespace DddCoreExample.Api
             services.AddScoped<IUnitOfWork, MemoryUnitOfWork>();
 
 
-            services.AddScoped<IRepository<Customer>, StubDataCustomerRepository>();
-            services.AddScoped<IRepository<ProductCode>, StubDataProductCodeRepository>();
-            services.AddScoped<IRepository<Country>, StubDataCountryRepository>();
-            services.AddScoped<IRepository<CountryTax>, StubDataCountryTaxRepository>();
-            services.AddScoped<IRepository<Product>, StubDataProductRepository>();
+            services.AddSingleton<IRepository<Customer>, StubDataCustomerRepository>();
+            services.AddSingleton<IRepository<ProductCode>, StubDataProductCodeRepository>();
+            services.AddSingleton<IRepository<Country>, StubDataCountryRepository>();
+            services.AddSingleton<IRepository<CountryTax>, StubDataCountryTaxRepository>();
+            services.AddSingleton<IRepository<Product>, StubDataProductRepository>();
 
             services.AddScoped<ICustomerService, CustomerService>();
 

@@ -22,7 +22,7 @@ namespace DddCoreExample.Infrastructure
 
         public IEnumerable<TEntity> Find(ISpecification<TEntity> spec)
         {
-            return Entities.Where(spec.IsSatisfiedBy);
+            return spec == null ? Entities : Entities.Where(spec.IsSatisfiedBy);
         }
 
         public void Add(TEntity entity)
